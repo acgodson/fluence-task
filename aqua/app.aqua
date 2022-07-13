@@ -1,0 +1,66 @@
+module App
+
+import PeerId, Peer from "@fluencelabs/aqua-lib/builtin.aqua"
+import AppConfig, UserStatus from "fluence-task.aqua"
+import User, UserList, AuthResult from "user.aqua"
+import EmptyServiceResult from "common.aqua"
+
+export joinNew, getUserList, initAfterJoin, updateOnlineStatuses, leave, auth, UserStatus, AppConfig
+
+func joinNew(user: User) -> EmptyServiceResult:
+    app <- AppConfig.getApp()
+    on app.user_list.peer_id:
+        UserList app.user_list.service_id
+        res <- UserList.join(user)
+    <- res
+
+
+func getUserList() -> []User:
+    app <- AppConfig.getApp()
+    on app.user_list.peer_id:
+        UserList app.user_list.service_id
+        allUsers <- UserList.get_users()
+    <- allUsers.users
+
+
+func initAfterJoin(me: User) -> []User:
+    allUsers <- getUserList()
+    for user <- allUsers par:
+        on user.relay_id:
+            isOnline <- Peer.is_connected(user.peer_id)
+        if isOnline:
+            on user.peer_id via user.relay_id:
+                UserStatus.notifyUserAdded(me, true)
+        par UserStatus.notifyUserAdded(user, isOnline)
+    <- allUsers
+
+
+func updateOnlineStatuses():
+    allUsers <- getUserList()
+    for user <- allUsers par:
+        on user.peer_id via user.relay_id:
+            isOnline <- Peer.is_connected(user.peer_id)
+        UserStatus.notifyOnline(user.peer_id, isOnline)
+
+
+func leave():
+    app <- AppConfig.getApp()
+    on app.user_list.peer_id:
+        UserList app.user_list.service_id
+        res <- UserList.leave(INIT_PEER_ID)
+    allUsers <- getUserList()
+    for user <- allUsers par:
+        on user.peer_id via user.relay_id:
+            UserStatus.notifyUserRemoved(INIT_PEER_ID)
+
+
+
+func auth() -> AuthResult:
+    app <- AppConfig.getApp()
+    on app.user_list.peer_id:
+        UserList app.user_list.service_id
+        res <- UserList.is_authenticated()
+    <- res
+
+
+  

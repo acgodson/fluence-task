@@ -1,0 +1,21 @@
+
+.title {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+
+.title .sub {
+    display: none;
+}
+
+.tit:hover {
+    display: none;
+}
+
+.sub:hover {
+    display: flex;
+    color: white;
+}
+

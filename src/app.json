@@ -1,0 +1,28 @@
+{
+    "services": {
+        "user_list": {
+            "dependencies": ["user_list_inmemory"],
+            "node": "12D3KooWFEwNWcHqi9rtsmDhsYcDbRUCDXH84RC4FW6UfsFWaoHi",
+            "hashDependencies": ["hash:74a4c1ad70dc9459778d3d1d7cfec823fba3200c78a4d8104e4f0b18dd8ec86a"],
+            "blueprint_id": "aeb5ffb06f05739f4c5a04dce1caa7321b1fcb150dbed849a55373896d26d7f3",
+            "id": "9fab6a55-f9c7-45d2-ab59-b7234124c055"
+        }
+    },
+    "modules": {
+        "user_list_inmemory": {
+            "file": "user_list.wasm",
+            "config": {},
+            "hash": "74a4c1ad70dc9459778d3d1d7cfec823fba3200c78a4d8104e4f0b18dd8ec86a"
+        }
+    },
+    "scripts": {
+        "set_tetraplet": {
+            "file": "set_tetraplet.air",
+            "variables": {
+                "function": "is_authenticated",
+                "json_path": "$.is_authenticated"
+            }
+        }
+    },
+    "script_storage": {}
+}

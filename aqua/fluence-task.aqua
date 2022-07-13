@@ -1,0 +1,32 @@
+module FluenceTask declares AppConfig, Calc, UserStatus
+
+import PeerId from "@fluencelabs/aqua-lib/builtin.aqua"
+import User from "user.aqua"
+
+export Calc
+
+data ServiceInstance:
+    peer_id: PeerId
+    service_id: string
+   
+
+data App:
+    user_list: ServiceInstance
+
+service UserStatus("fluence/fluence-task/status"):
+    notifyOnline(userPeerId: string, isOnline: bool)
+    notifyUserAdded(currentUser: User, isOnline: bool)
+    notifyUserRemoved(userPeerId: PeerId)
+    notifyScore(currentUser: User, score: string)
+
+service Calc("calc"):
+    add(n: f32)
+    subtract(n: f32)
+    multiply(n: f32)
+    divide(n: f32)
+    reset()
+    getResult() -> f32 
+
+
+service AppConfig("fluence/get-config"): 
+    getApp: -> App
