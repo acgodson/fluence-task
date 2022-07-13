@@ -11,8 +11,9 @@ This project is built with React and leverages on Fluence-JS examples to deploy 
 
 
 ## Scalability
-Scores from users action can be calcuated on fluence hosted service, while users can share their achievements
-Tokens or Rewards can be rewarded for achievements
-Summary or Estimate of reduced Footprint can be done based on users activity
+Amongst future possibilities: 
+Scores from users inputs can be calcuated on hosted service, while users can share their scores achievements
+Tokens and Rewards can be given for achievement levels (incentivization)
+Estimated summary of reduced carbon Footprint can be reached based on users activity
 
 
