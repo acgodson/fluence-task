@@ -15,6 +15,10 @@ func joinNew(user: User) -> EmptyServiceResult:
     <- res
 
 
+
+
+
+
 func getUserList() -> []User:
     app <- AppConfig.getApp()
     on app.user_list.peer_id:
@@ -63,4 +67,10 @@ func auth() -> AuthResult:
     <- res
 
 
+-- func scoreCalculation(score: Score) -> f32:
+--     app <- AppConfig.getApp()
+--     on app.user_list.peer_id:
+--         Calc.add(score.a)
+--         res <- Calc.getResult()
+--     <- res
   

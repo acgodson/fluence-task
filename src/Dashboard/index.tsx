@@ -1,8 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { withErrorHandlingAsync } from 'src/components/utils';
-import { registerUserStatus } from 'src/_aqua/app';
-import { PeerIdB58 } from '@fluencelabs/fluence';
 import styles from './styles.module.css';
 import 'react-pro-sidebar/dist/css/styles.css';
 import Tiles from 'src/components/Tiles';
@@ -31,54 +29,48 @@ type locationState = {
     name: string;
 };
 
-interface User {
-    id: PeerIdB58;
-    name: string;
-    isOnline: boolean;
-    score: string;
-}
 
 const Tasks = [
     {
         cover: bulb,
         icon: faLightbulb,
         title: 'Turn Off the Light',
-        subtitle: 'Turn of the Light as soon as you leave the room',
+        subtitle: 'remember, to turn of the Light as soon as you leave the room. Hit the button once you take the action in real-life',
         score: 3,
     },
     {
         cover: rope,
         icon: faHandsWash,
         title: 'Skip the Dryer',
-        subtitle: 'Turn of the Light as soon as you leave the room',
+        subtitle: 'save money with lasting clothes. Dry them outdoors on the clothelines or drying rack',
         score: 3,
     },
     {
         cover: recycle,
         icon: faRecycle,
         title: 'Recycle Plastic',
-        subtitle: 'Turn of the Light as soon as you leave the room',
+        subtitle: 'make sure paper, bottles, and other non-trash get to the bin where they belong',
         score: 5,
     },
     {
         cover: bike,
         icon: faBiking,
         title: 'Ride a Bike',
-        subtitle: 'Turn of the Light as soon as you leave the room',
+        subtitle: 'take a bike to your destination instead of driving though busy traffics.',
         score: 5,
     },
     {
         cover: laundry,
         icon: faTemperature0,
         title: 'Wash Cold',
-        subtitle: 'Turn of the Light as soon as you leave the room',
+        subtitle: 'don\'t use the hot wash on the machine. Stains can still leave without heating up materials',
         score: 2,
     },
     {
         cover: plant,
         icon: faPlantWilt,
         title: 'Plant New Seedlings',
-        subtitle: 'Turn of the Light as soon as you leave the room',
+        subtitle: 'Plant a new flower or tre seedlings in yor yard. Good for nature',
         score: 8,
     },
 ];
@@ -91,27 +83,14 @@ const Dashboard = () => {
     const isConnected = useContext(connectionContext);
     const [isInActiveDay, setisInActiveDay] = useContext(joinContext);
     const [buzzModal, setBuzzModal] = useState<boolean>(false);
-    const [buzzPoint, setBuzzPoint] = useState<number[]>(Tasks.map((x) => x.score));
-
-
+    const [buzzPoint, setBuzzPoint] = useState<number>(0);
+    const [scores, setScores] = useState<number[]>([0]);
+    const [totalScore, setTotalScore] = useState<string>('0');
     const [values, setValues] = useState({
         title: '',
         subtitle: '',
         score: '',
     });
-
-    const [users, setUsers] = useState<Map<PeerIdB58, User>>(new Map());
-
-    const updateOnlineStatus = (user: string, onlineStatus: boolean) => {
-        setUsers((prev) => {
-            const result = new Map(prev);
-            const u = result.get(user);
-            if (u) {
-                result.set(user, { ...u, isOnline: onlineStatus });
-            }
-            return result;
-        });
-    };
 
     function toggleBuzzModal() {
         if (buzzModal) {
@@ -121,61 +100,13 @@ const Dashboard = () => {
         }
     }
 
+   
+
     function handleSubmit() {
         if (values.score) {
-            ///Add The number to the Users total Value,
-            console.log(values.score);
+            setBuzzPoint(parseInt(values.score));
+            setBuzzModal(false);
 
-            registerUserStatus({
-                notifyOnline: (user, onlineStatus) => {
-                    updateOnlineStatus(user, onlineStatus);
-                },
-                notifyUserAdded: (user, isOnline) => {
-                    setUsers((prev) => {
-                        const u = user;
-                        const result = new Map(prev);
-                        if (result.has(u.peer_id)) {
-                            return result;
-                        }
-
-                        result.set(u.peer_id, {
-                            name: u.name,
-                            id: u.peer_id,
-                            isOnline: isOnline,
-                            score: values.score,
-                        });
-
-                        return result;
-                    });
-                },
-                notifyUserRemoved: (userLeft) => {
-                    setUsers((prev) => {
-                        const result = new Map(prev);
-                        result.delete(userLeft);
-                        return result;
-                    });
-                },
-                notifyScore: (user, score) => {
-                    setUsers((prev) => {
-                        const u = user;
-                        const result = new Map(prev);
-                        if (result.has(u.peer_id)) {
-                            return result;
-                        }
-
-                        result.set(u.peer_id, {
-                            name: u.name,
-                            id: u.peer_id,
-                            score: values.score,
-                            isOnline: true,
-                        });
-
-                        return result;
-                    });
-                },
-            });
-
-            console.log('updated');
         }
     }
 
@@ -191,9 +122,13 @@ const Dashboard = () => {
     };
 
     useEffect(() => {
-        ///Add new Score for User;
-        console.log(buzzPoint);
-    }, [buzzPoint]);
+        ///Add new Total Score for User;
+        if (buzzModal) {
+        setScores([...scores, buzzPoint]);
+        setTotalScore(scores.reduce((a, b) => a + b).toString());
+
+        }
+    }, [buzzModal]);
 
     useEffect(() => {
         if (!isInActiveDay) {
@@ -250,7 +185,7 @@ const Dashboard = () => {
                         </span>
                     </label>
 
-                    <UserList selfName={displayName} score={values.score.toString()} />
+                    <UserList selfName={displayName} score={totalScore!.toString()} />
                 </div>
 
                 <div className={styles.categories}>

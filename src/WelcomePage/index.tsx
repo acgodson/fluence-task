@@ -7,10 +7,11 @@ import './styles.css';
 import illustration from './Img/illustration.svg';
 import Modal from 'src/components/Modal';
 import connectionContext from 'src/Contexts/connection';
-import buzz from '../WelcomePage/Img/buzz.gif'
-import count from '../WelcomePage/Img/score.gif'
-import share from '../WelcomePage/Img/share.gif'
+import buzz from '../WelcomePage/Img/buzz.gif';
+import count from '../WelcomePage/Img/score.gif';
+import share from '../WelcomePage/Img/share.gif';
 import joinContext from 'src/Contexts/join';
+
 
 
 const HomePage = () => {
@@ -30,7 +31,7 @@ const HomePage = () => {
     async function joinNewDay() {
         if (isConnected && name) {
             await withErrorHandlingAsync(async () => {
-                const res = await joinNew ({
+                const res = await joinNew({
                     peer_id: Fluence.getStatus().peerId!,
                     relay_id: Fluence.getStatus().relayPeerId!,
                     name: name,
@@ -44,11 +45,13 @@ const HomePage = () => {
         }
     }
 
+  
+
     useEffect(() => {
         if (isInActiveDay) {
             navigate('/dashboard', { state: { name: name } });
         }
-    },[isInActiveDay, name, navigate]);
+    }, [isInActiveDay, name, navigate]);
 
     return (
         <div>

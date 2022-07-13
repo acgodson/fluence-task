@@ -12,22 +12,10 @@ interface User {
     score: string;
 }
 
-
-interface CalcDef {
-    add: (n: number, callParams: CallParams<"n">) => void | Promise<void>;
-    subtract: (n: number, callParams: CallParams<"n">) => void | Promise<void>;
-    multiply: (n: number, callParams: CallParams<"n">) => void | Promise<void>;
-    divide: (n: number, callParams: CallParams<"n">) => void | Promise<void>;
-    reset: (callParams: CallParams<null>) => void | Promise<void>;
-    getResult: (callParams: CallParams<null>) => number | Promise<number>;
-  }
-
 const refreshOnlineStatusTimeoutMs = 10000;
 
 export const UserList = (props: { selfName: string; score: string }) => {
     const [users, setUsers] = useState<Map<PeerIdB58, User>>(new Map());
-    // const [scores, setScores] = useState<Map<number, CalcDef>>(new Map());
-
     const updateOnlineStatus = (user: string, onlineStatus: boolean) => {
         setUsers((prev) => {
             const result = new Map(prev);
@@ -72,24 +60,6 @@ export const UserList = (props: { selfName: string; score: string }) => {
                 setUsers((prev) => {
                     const result = new Map(prev);
                     result.delete(userLeft);
-                    return result;
-                });
-            },
-            notifyScore: (user, score) => {
-                setUsers((prev) => {
-                    const u = user;
-                    const result = new Map(prev);
-                    if (result.has(u.peer_id)) {
-                        return result;
-                    }
-
-                    result.set(u.peer_id, {
-                        name: u.name,
-                        id: u.peer_id,
-                        score: score,
-                        isOnline: true,
-                    });
-
                     return result;
                 });
             },

@@ -18,7 +18,6 @@ import {
 
 export interface UserStatusDef {
     notifyOnline: (userPeerId: string, isOnline: boolean, callParams: CallParams<'userPeerId' | 'isOnline'>) => void | Promise<void>;
-notifyScore: (currentUser: { name: string; peer_id: string; relay_id: string; }, score: string, callParams: CallParams<'currentUser' | 'score'>) => void | Promise<void>;
 notifyUserAdded: (currentUser: { name: string; peer_id: string; relay_id: string; }, isOnline: boolean, callParams: CallParams<'currentUser' | 'isOnline'>) => void | Promise<void>;
 notifyUserRemoved: (userPeerId: string, callParams: CallParams<'userPeerId'>) => void | Promise<void>;
 }
@@ -45,26 +44,6 @@ export function registerUserStatus(...args: any) {
                 },
                 {
                     "name" : "isOnline",
-                    "argType" : {
-                        "tag" : "primitive"
-                    }
-                }
-            ],
-            "returnType" : {
-                "tag" : "void"
-            }
-        },
-        {
-            "functionName" : "notifyScore",
-            "argDefs" : [
-                {
-                    "name" : "currentUser",
-                    "argType" : {
-                        "tag" : "primitive"
-                    }
-                },
-                {
-                    "name" : "score",
                     "argType" : {
                         "tag" : "primitive"
                     }

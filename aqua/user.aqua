@@ -8,6 +8,10 @@ data User:
     relay_id: PeerId
     name: string
 
+-- data Score:
+--     a: f32
+   
+
 data GetUsersServiceResult:
     users: []User
     ret_code: i32
@@ -24,3 +28,4 @@ service UserList:
     join(user: User) -> EmptyServiceResult
     leave(userPeerId: PeerId) -> EmptyServiceResult
     is_exists(userPeerId: PeerId)
+    -- scoreCalculation(score: Score)
