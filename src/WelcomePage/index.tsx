@@ -58,7 +58,7 @@ const HomePage = () => {
             <div className="nav-bar">
                 <div>
                     <p className="logo-nav">
-                        Fluent<span>Task</span>
+                        Fluence<span>Task</span>
                     </p>
                 </div>
 
