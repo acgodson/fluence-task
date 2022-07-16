@@ -1,5 +1,5 @@
 import { Fluence } from '@fluencelabs/fluence';
-import { CheckResponse, withErrorHandlingAsync } from '../components/utils';
+import { CheckResponse, withErrorHandlingAsync } from '../components/handlers';
 import { joinNew } from 'src/_aqua/app';
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -126,7 +126,7 @@ const HomePage = () => {
                             <img src={count} alt="Person 2" />
 
                             <p>
-                                <span>Track </span>your green scores and be motivated to get better everyday
+                                <span>Track </span>your daily scores and be motivated to get better everyday
                             </p>
                         </li>
 
@@ -134,8 +134,8 @@ const HomePage = () => {
                         <li>
                             <img src={share} alt="Person 3" />
                             <p>
-                                <span>Be inspired</span> by scores reached by those around and also invite friends at
-                                home and wrk to join
+                                <span>Be inspired</span> by scores reached by those around you and also invite friends at
+                                home or work to join in the campaign
                             </p>
                         </li>
                     </ul>

@@ -299,3 +299,27 @@ nav li a:hover {
         background-color: green !important;
     }
 }
+
+
+.mobile_bar {
+    height: 300px;
+    width: 100%;
+    align-self: center;
+    background-color: green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size:  25px;
+    color: white
+}
+
+.mobile_bar button {
+    height: 44px;
+    border: none;
+    border-radius: 12px;
+    width: 120px;
+    font-weight: bold;
+    font-size: 14px;
+
+}

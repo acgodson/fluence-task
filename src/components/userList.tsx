@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { withErrorHandlingAsync } from './utils';
+import { withErrorHandlingAsync } from './handlers';
 import { initAfterJoin, updateOnlineStatuses } from 'src/_aqua/app';
 import { registerUserStatus } from 'src/_aqua/app';
 import { CallParams, Fluence, PeerIdB58 } from '@fluencelabs/fluence';
@@ -76,7 +76,7 @@ export const UserList = (props: { selfName: string; score: string }) => {
         return () => {
             clearTimeout(listRefreshTimer);
         };
-    }, [props.selfName, props.score]);
+    },);
 
     const usersArray = Array.from(users)
         .map((x) => x[1])

@@ -14,11 +14,6 @@ func joinNew(user: User) -> EmptyServiceResult:
         res <- UserList.join(user)
     <- res
 
-
-
-
-
-
 func getUserList() -> []User:
     app <- AppConfig.getApp()
     on app.user_list.peer_id:

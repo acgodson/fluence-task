@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { withErrorHandlingAsync } from 'src/components/utils';
+import { withErrorHandlingAsync } from 'src/components/handlers';
 import styles from './styles.module.css';
 import 'react-pro-sidebar/dist/css/styles.css';
 import Tiles from 'src/components/Tiles';
@@ -16,6 +16,8 @@ import bike from '../WelcomePage/Img/bike.jpg';
 import laundry from '../WelcomePage/Img/laundry.jpg';
 import plant from '../WelcomePage/Img/plant.jpg';
 import menu from '../WelcomePage/Img/menu.svg';
+import { toast } from 'react-toastify';
+
 import {
     faLightbulb,
     faHandsWash,
@@ -29,13 +31,13 @@ type locationState = {
     name: string;
 };
 
-
 const Tasks = [
     {
         cover: bulb,
         icon: faLightbulb,
         title: 'Turn Off the Light',
-        subtitle: 'remember, to turn of the Light as soon as you leave the room. Hit the button once you take the action in real-life',
+        subtitle:
+            'remember, to turn of the Light as soon as you leave the room. Hit the button once you take the action in real-life',
         score: 3,
     },
     {
@@ -63,7 +65,7 @@ const Tasks = [
         cover: laundry,
         icon: faTemperature0,
         title: 'Wash Cold',
-        subtitle: 'don\'t use the hot wash on the machine. Stains can still leave without heating up materials',
+        subtitle: "don't use the hot wash on the machine. Stains can still leave without heating up materials",
         score: 2,
     },
     {
@@ -82,6 +84,7 @@ const Dashboard = () => {
     const displayName = state.name;
     const isConnected = useContext(connectionContext);
     const [isInActiveDay, setisInActiveDay] = useContext(joinContext);
+    const [mobileModal, setMobileModal] = useState<boolean>(false);
     const [buzzModal, setBuzzModal] = useState<boolean>(false);
     const [buzzPoint, setBuzzPoint] = useState<number>(0);
     const [scores, setScores] = useState<number[]>([0]);
@@ -99,14 +102,18 @@ const Dashboard = () => {
             setBuzzModal(true);
         }
     }
-
-   
+    function toggleMobileModal() {
+        if (mobileModal) {
+            setMobileModal(false);
+        } else {
+            setMobileModal(true);
+        }
+    }
 
     function handleSubmit() {
         if (values.score) {
             setBuzzPoint(parseInt(values.score));
             setBuzzModal(false);
-
         }
     }
 
@@ -122,13 +129,11 @@ const Dashboard = () => {
     };
 
     useEffect(() => {
-        ///Add new Total Score for User;
-        if (buzzModal) {
-        setScores([...scores, buzzPoint]);
-        setTotalScore(scores.reduce((a, b) => a + b).toString());
-
+       
+        if (!buzzModal && parseInt(totalScore) != 0) {
+            toast.success(totalScore);
         }
-    }, [buzzModal]);
+    }, [buzzModal, totalScore]);
 
     useEffect(() => {
         if (!isInActiveDay) {
@@ -158,6 +163,8 @@ const Dashboard = () => {
                                         height: '45px',
                                         width: '45px',
                                     }}
+
+                                    onClick= {() => setMobileModal(true)}
                                 >
                                     <img src={menu} alt="menu" />
                                 </button>
@@ -187,6 +194,37 @@ const Dashboard = () => {
 
                     <UserList selfName={displayName} score={totalScore!.toString()} />
                 </div>
+
+
+{mobileModal && (
+    <Modal     style={{
+        top: '10vh',
+        minHeight: 'fit-content',
+        borderRadius: '15px',
+        backgroundColor: 'white',
+        overflowY: 'hidden',
+        left: '0',
+        right: '0',
+        width: '95%',
+        zIndex: '999999',
+    }}
+    big
+    closeModal={toggleMobileModal}>
+     <div className={styles.mobile_bar}>
+     <label>
+                        Scores{' '}
+                     
+                    </label>
+        <UserList selfName={displayName} score={totalScore!.toString()} />
+        <span>
+                            <button onClick={() => leaveTask()}>Leave</button>
+                        </span>
+     </div>
+
+    </Modal>
+)}
+
+
 
                 <div className={styles.categories}>
                     {Tasks.map((tasks, i) => (
@@ -234,7 +272,13 @@ const Dashboard = () => {
                         </div>
                         <div className={styles.modal_body}>
                             <p>For this Action, {values.subtitle}</p>
-                            <button type="submit" className="submit" onClick={handleSubmit}>
+                            <button type="submit" className="submit" onClick={() => {
+                                 handleSubmit();
+                                 setScores([...scores, buzzPoint]);
+                                 setTotalScore(scores.reduce((a: number, b: number) => a + b).toString());
+                        
+                                 
+                                 }}>
                                 Check Action
                             </button>
                         </div>
