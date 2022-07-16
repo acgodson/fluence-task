@@ -1,7 +1,7 @@
 ## fluence-task - An activity Web app that promotes sustainability through real life actions
 
 
-FluenceTask encourages users to shift their daily habits towards tasks that improve sustainability and reduces carbon footprint at home or work. 
+FluenceTask encourages users to shift their daily habits towards tasks that improve sustainability and optimizes carbon footprint, at home or work. 
 
 Users connected on the peer check-in actions via the web app when they perform each task in real life. They also learn some potential advantages of each sustainable action.
 
