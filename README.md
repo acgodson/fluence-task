@@ -8,12 +8,12 @@ Users connected on the peer check-in actions when they perform each task in real
 Active users are displayed on the network and points are awarded for each sustainable action.
 
 
-## Aqua  Service/functions to save user-list
+## Aqua & Fluence-JS
 
 This idea leverages on the userList-inmemory service deployed on a fluence node from the Fluence-JS template at https://github.com/fluencelabs/fluent-pad.git
 
 
-## Returning a list of each user's score
+# Returning a list of each user's score
 
 ```
 service UserScores("user-scores"):
