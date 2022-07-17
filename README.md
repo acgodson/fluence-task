@@ -12,7 +12,7 @@ This idea leverages on the userList-inmemory service already hosted on a fluence
 React frontend is used to demonstrate this potential use of fluence for a sustainable project.
 
 ## Browser Demo 
-https://youtu.be/gbksJYSGDFk 
+in progress
 
 ## Web Link
-Web Link http://sweet-art-3861.on.fleek.co/
+in progress
