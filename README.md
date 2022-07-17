@@ -33,6 +33,8 @@ func getRelayTime() -> u64:
 ## Browser Demo
 Web Link http://sweet-art-3861.on.fleek.co/
 
+## Hosted Service
+This idea leverages on the userList-inmemory service already hosted on a fluence node from the Fluence-JS template at https://github.com/fluencelabs/fluent-pad.git
 
 ## Video Link 
 
