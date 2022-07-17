@@ -1,4 +1,4 @@
-## fluence-task - An activity Web app that promotes sustainability through real life actions
+# fluence-task - An activity Web app that promotes sustainability through real life actions
 
 
 FluenceTask encourages users to shift their daily habits towards tasks that improve sustainability and optimizes carbon footprint at home or workplace. 
@@ -13,7 +13,7 @@ Active users are displayed on the network and points are awarded for each sustai
 This idea leverages on the userList-inmemory service deployed on a fluence node from the Fluence-JS template at https://github.com/fluencelabs/fluent-pad.git
 
 
-# Returning a list of each user's score
+# Returning a list of scores
 
 ```
 service UserScores("user-scores"):
