@@ -63,13 +63,13 @@ const HomePage = () => {
                 </div>
 
                 <div>
-                    <nav>
+                    {/* <nav>
                         <ul className="second-nav">
                             <li className="go-premium-cta" onClick={() => setLoginModalShowing(true)}>
                                 <p>Join </p>
                             </li>
                         </ul>
-                    </nav>
+                    </nav> */}
                 </div>
             </div>
 
@@ -92,7 +92,8 @@ const HomePage = () => {
                 </div>
             </section>
 
-            <section className="features-section">
+      <div>
+      <section className="features-section">
                 <div className="container">
                     <ul>
                         <li>Turn Off the Light</li>
@@ -108,6 +109,8 @@ const HomePage = () => {
                     </div>
                 </div>
             </section>
+      </div>
+
 
             <section className="others test-monials-section" style={{ overflowX: 'hidden' }}>
                 <div className="container">
@@ -134,8 +137,8 @@ const HomePage = () => {
                         <li>
                             <img src={share} alt="Person 3" />
                             <p>
-                                <span>Be inspired</span> by scores reached by those around you and also invite friends at
-                                home or work to join in the campaign
+                                <span>Be inspired</span> invite friends  and family to
+                        join in the campaign
                             </p>
                         </li>
                     </ul>
