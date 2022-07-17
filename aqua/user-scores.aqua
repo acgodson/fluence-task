@@ -1,0 +1,20 @@
+
+module App
+
+import PeerId, Peer from "@fluencelabs/aqua-lib/builtin.aqua"
+
+export  UserScores,  getRelayTime, tellFortune
+
+service UserScores("user-scores"):
+    getFortune() ->  []f32
+
+func tellFortune() ->  []f32:
+    res <- UserScores.getFortune()
+    <- res
+
+
+func getRelayTime() -> u64:
+    on HOST_PEER_ID:
+        ts <- Peer.timestamp_ms()
+    <- ts
+

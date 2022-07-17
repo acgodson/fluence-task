@@ -65,7 +65,7 @@ const HomePage = () => {
                 <div>
                     <nav>
                         <ul className="second-nav">
-                            <li className="go-premium-cta">
+                            <li className="go-premium-cta" onClick={() => setLoginModalShowing(true)}>
                                 <p>Join </p>
                             </li>
                         </ul>
@@ -98,7 +98,7 @@ const HomePage = () => {
                         <li>Turn Off the Light</li>
 
                         <li> Skip the Dryer</li>
-                        <li>Rcycle Plastic</li>
+                        <li>Recycle Plastic</li>
                         <li>Ride a Bike</li>
                         <li>Wash Cold</li>
                         <li>Plant Trees</li>

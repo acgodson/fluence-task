@@ -2,10 +2,10 @@ module App
 
 import PeerId, Peer from "@fluencelabs/aqua-lib/builtin.aqua"
 import AppConfig, UserStatus from "fluence-task.aqua"
-import User, UserList, AuthResult from "user.aqua"
-import EmptyServiceResult from "common.aqua"
-
+import User, UserList, EmptyServiceResult, AuthResult from "model.aqua"
 export joinNew, getUserList, initAfterJoin, updateOnlineStatuses, leave, auth, UserStatus, AppConfig
+
+
 
 func joinNew(user: User) -> EmptyServiceResult:
     app <- AppConfig.getApp()
@@ -62,10 +62,5 @@ func auth() -> AuthResult:
     <- res
 
 
--- func scoreCalculation(score: Score) -> f32:
---     app <- AppConfig.getApp()
---     on app.user_list.peer_id:
---         Calc.add(score.a)
---         res <- Calc.getResult()
---     <- res
-  
+
+

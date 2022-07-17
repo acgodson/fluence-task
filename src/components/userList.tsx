@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { withErrorHandlingAsync } from './handlers';
 import { initAfterJoin, updateOnlineStatuses } from 'src/_aqua/app';
 import { registerUserStatus } from 'src/_aqua/app';
 import { CallParams, Fluence, PeerIdB58 } from '@fluencelabs/fluence';
+import joinContext from 'src/Contexts/join';
+
 
 interface User {
     id: PeerIdB58;
@@ -12,11 +14,11 @@ interface User {
     score: string;
 }
 
-const refreshOnlineStatusTimeoutMs = 10000;
+const refreshOnlineStatusTimeoutMs = 1000;
 
 export const UserList = (props: { selfName: string; score: string }) => {
     const [users, setUsers] = useState<Map<PeerIdB58, User>>(new Map());
-    const updateOnlineStatus = (user: string, onlineStatus: boolean) => {
+      const updateOnlineStatus = (user: string, onlineStatus: boolean) => {
         setUsers((prev) => {
             const result = new Map(prev);
             const u = result.get(user);
@@ -26,6 +28,7 @@ export const UserList = (props: { selfName: string; score: string }) => {
             return result;
         });
     };
+
 
     useEffect(() => {
         const listRefreshTimer = setInterval(() => {
@@ -64,7 +67,7 @@ export const UserList = (props: { selfName: string; score: string }) => {
                 });
             },
         });
-
+    
         withErrorHandlingAsync(async () => {
             await initAfterJoin({
                 name: props.selfName,
@@ -76,7 +79,7 @@ export const UserList = (props: { selfName: string; score: string }) => {
         return () => {
             clearTimeout(listRefreshTimer);
         };
-    },);
+    },[]);
 
     const usersArray = Array.from(users)
         .map((x) => x[1])

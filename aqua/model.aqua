@@ -1,16 +1,16 @@
-module UserList declares User, UserList, AuthResult
+module UserList declares User, UserList, EmptyServiceResult, AuthResult
 
 import PeerId from "@fluencelabs/aqua-lib/builtin.aqua"
-import EmptyServiceResult from "common.aqua"
+
+data EmptyServiceResult:
+    ret_code: i32
+    err_msg: string
+
 
 data User:
     peer_id: PeerId
     relay_id: PeerId
     name: string
-
--- data Score:
---     a: f32
-   
 
 data GetUsersServiceResult:
     users: []User
@@ -28,4 +28,3 @@ service UserList:
     join(user: User) -> EmptyServiceResult
     leave(userPeerId: PeerId) -> EmptyServiceResult
     is_exists(userPeerId: PeerId)
-    -- scoreCalculation(score: Score)

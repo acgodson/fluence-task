@@ -8,7 +8,8 @@ import Modal from 'src/components/Modal';
 import joinContext from 'src/Contexts/join';
 import connectionContext from 'src/Contexts/connection';
 import { UserList } from 'src/components/userList';
-import { leave } from 'src/_aqua/app';
+import { leave} from 'src/_aqua/app';
+import { getRelayTime, registerUserScores, tellFortune } from 'src/_aqua/user-scores';
 import bulb from '../WelcomePage/Img/bulb.jpg';
 import rope from '../WelcomePage/Img/rope.jpg';
 import recycle from '../WelcomePage/Img/recycle.jpg';
@@ -17,7 +18,6 @@ import laundry from '../WelcomePage/Img/laundry.jpg';
 import plant from '../WelcomePage/Img/plant.jpg';
 import menu from '../WelcomePage/Img/menu.svg';
 import { toast } from 'react-toastify';
-
 import {
     faLightbulb,
     faHandsWash,
@@ -128,10 +128,35 @@ const Dashboard = () => {
         });
     };
 
+    async function updateScores() {
+        try {
+            //   if (isInActiveDay) {
+            registerUserScores({
+                getFortune: async () => {
+                    await new Promise((resolve) => {
+                        setTimeout(resolve, 1000);
+                    });
+                    
+                    return scores;
+                },
+            });
+
+            const _scores = await tellFortune();
+            const relayTime = await getRelayTime();
+            setScores(_scores);
+           
+
+            console.log(_scores);
+
+        } catch (err) {
+            console.log('Peer initialization failed', err);
+        }
+    }
+
     useEffect(() => {
-       
-        if (!buzzModal && parseInt(totalScore) != 0) {
-            toast.success(totalScore);
+        if (!buzzModal && parseInt(totalScore) !== 0) {
+            updateScores();
+            toast.success(`Keep it up you've just earned ${totalScore} points`);
         }
     }, [buzzModal, totalScore]);
 
@@ -163,8 +188,7 @@ const Dashboard = () => {
                                         height: '45px',
                                         width: '45px',
                                     }}
-
-                                    onClick= {() => setMobileModal(true)}
+                                    onClick={() => setMobileModal(true)}
                                 >
                                     <img src={menu} alt="menu" />
                                 </button>
@@ -186,45 +210,40 @@ const Dashboard = () => {
             <div>
                 <div className={styles.side_bar}>
                     <label>
-                        Scores{' '}
+                      
                         <span>
-                            <button onClick={() => leaveTask()}>Leave</button>
+                            <button className={styles.side_button} onClick={() => leaveTask()}>Leave</button>
                         </span>
                     </label>
 
                     <UserList selfName={displayName} score={totalScore!.toString()} />
                 </div>
 
-
-{mobileModal && (
-    <Modal     style={{
-        top: '10vh',
-        minHeight: 'fit-content',
-        borderRadius: '15px',
-        backgroundColor: 'white',
-        overflowY: 'hidden',
-        left: '0',
-        right: '0',
-        width: '95%',
-        zIndex: '999999',
-    }}
-    big
-    closeModal={toggleMobileModal}>
-     <div className={styles.mobile_bar}>
-     <label>
-                        Scores{' '}
-                     
-                    </label>
-        <UserList selfName={displayName} score={totalScore!.toString()} />
-        <span>
-                            <button onClick={() => leaveTask()}>Leave</button>
-                        </span>
-     </div>
-
-    </Modal>
-)}
-
-
+                {mobileModal && (
+                    <Modal
+                        style={{
+                            top: '10vh',
+                            minHeight: 'fit-content',
+                            borderRadius: '15px',
+                            backgroundColor: 'white',
+                            overflowY: 'hidden',
+                            left: '0',
+                            right: '0',
+                            width: '95%',
+                            zIndex: '999999',
+                        }}
+                        big
+                        closeModal={toggleMobileModal}
+                    >
+                        <div className={styles.mobile_bar}>
+                            <label>Scores </label>
+                            <UserList selfName={displayName} score={totalScore!.toString()} />
+                            <span>
+                                <button onClick={() => leaveTask()}>Leave</button>
+                            </span>
+                        </div>
+                    </Modal>
+                )}
 
                 <div className={styles.categories}>
                     {Tasks.map((tasks, i) => (
@@ -272,13 +291,15 @@ const Dashboard = () => {
                         </div>
                         <div className={styles.modal_body}>
                             <p>For this Action, {values.subtitle}</p>
-                            <button type="submit" className="submit" onClick={() => {
-                                 handleSubmit();
-                                 setScores([...scores, buzzPoint]);
-                                 setTotalScore(scores.reduce((a: number, b: number) => a + b).toString());
-                        
-                                 
-                                 }}>
+                            <button
+                                type="submit"
+                                className="submit"
+                                onClick={() => {
+                                    handleSubmit();
+                                    setScores([...scores, buzzPoint]);
+                                    setTotalScore(scores.reduce((a: number, b: number) => a + b).toString());
+                                }}
+                            >
                                 Check Action
                             </button>
                         </div>

@@ -314,7 +314,7 @@ nav li a:hover {
     color: white
 }
 
-.mobile_bar button {
+.mobile_bar button, .side_button {
     height: 44px;
     border: none;
     border-radius: 12px;
