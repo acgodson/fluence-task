@@ -8,9 +8,14 @@ Users connected on the peer check-in actions when they perform each task in real
 Active users are displayed on the network and points are awarded for each sustainable action.
 
 
-## Aqua & Fluence-JS
+## Video Link 
 
-This idea leverages on the userList-inmemory service deployed on a fluence node from the Fluence-JS template at https://github.com/fluencelabs/fluent-pad.git
+https://youtu.be/bnpZkxYx4-U
+
+
+## Browser Demo
+
+Web Link http://sweet-art-3861.on.fleek.co/
 
 
 # Returning a list of scores
@@ -23,22 +28,10 @@ func tellFortune() ->  []f32:
     res <- UserScores.getFortune()
     <- res
 
-
-func getRelayTime() -> u64:
-    on HOST_PEER_ID:
-        ts <- Peer.timestamp_ms()
-    <- ts
 ```
 
-## Browser Demo
-Web Link http://sweet-art-3861.on.fleek.co/
-
-## Hosted Service
-This idea leverages on the userList-inmemory service already hosted on a fluence node from the Fluence-JS template at https://github.com/fluencelabs/fluent-pad.git
-
-## Video Link 
-
-https://youtu.be/gbksJYSGDFk 
+## Hosted Service (forks)
+This idea also leverages on the userList-inmemory service already hosted on a fluence node from the Fluence-JS template at https://github.com/fluencelabs/fluent-pad.git
 
 
 ## Possibilities
