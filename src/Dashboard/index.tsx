@@ -169,7 +169,7 @@ const Dashboard = () => {
     return (
         <>
             <div className={styles.nav_bar}>
-                <div>
+                <div className={styles.top_menu}> 
                     <p className={styles.logo_nav}>
                         Fluence<span>Task</span>
                     </p>
@@ -209,12 +209,14 @@ const Dashboard = () => {
 
             <div>
                 <div className={styles.side_bar}>
-                    <label>
-                      
-                        <span>
-                            <button className={styles.side_button} onClick={() => leaveTask()}>Leave</button>
-                        </span>
-                    </label>
+                <div className={styles.top_menu}> 
+                    <p className={styles.logo_nav}>
+                        Fluence<span>Task</span>
+                    </p>
+                                 <button className={styles.side_button} onClick={() => leaveTask()}>Leave</button>
+                     
+                </div>
+                   
 
                     <UserList selfName={displayName} score={totalScore!.toString()} />
                 </div>

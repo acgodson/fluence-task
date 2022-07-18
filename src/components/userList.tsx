@@ -92,9 +92,9 @@ export const UserList = (props: { selfName: string; score: string }) => {
                 {usersArray.map((x) => (
                     <li key={x.id}>
                         <span style={{ fontWeight: x.id === Fluence.getStatus().peerId ? 'bold' : '' }}>{x.name }</span>
-                        <span style={{ color: x.isOnline ? 'green' : 'red' }}>
+                        <span style={{ color: x.isOnline ? 'whitesmoke' : 'red', fontSize: "10px" }}>
                             {' '}
-                            ({x.isOnline ? 'online' : 'offline'})
+                            {x.isOnline ? 'online' : 'offline'}
                         </span>
                         <span style={{ fontWeight: 'bold' }}>{x.score}</span>
                     </li>
