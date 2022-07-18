@@ -5,9 +5,8 @@
 }
 
 body {
-    background: #f5f5f5;
+    background: #20272e;
     margin: 0;
-    width: 100%;
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
 }
@@ -40,7 +39,7 @@ section {
 .nav-bar .logo-nav {
     text-decoration: none;
     font-weight: bold;
-    color: #000;
+    color: whitesmoke;
     font-size: 2em;
 }
 
@@ -123,11 +122,13 @@ section {
 
 /* --- FEATURES STYLE ---*/
 .features-section {
-    background: #20272e;
+    /* background-color: red !important; */
     color: #fff;
-    z-index: 0;
-    width: 100%;
-    padding: 30px
+    z-index: 100;
+    width: 100% !important;
+    padding: 30px;
+    overflow-x: hidden !important;
+    overflow: hidden;
 }
 
 .features-section ul {
@@ -135,6 +136,7 @@ section {
     padding-left: 0.1em;
     display: -ms-grid;
     display: grid;
+    overflow-x: hidden;
     -ms-grid-columns: (minmax(19rem, 1fr)) [auto-fit];
     grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
 }
@@ -159,6 +161,14 @@ section {
 .features-section img {
     display: none;
 }
+
+.features-section .container {
+    margin: 0;
+    width: 100% !important;
+}
+
+
+
 
 /* --- TEST STYLE ---*/
 .test-monials-section {
@@ -267,8 +277,37 @@ nav li a:hover {
     cursor: pointer;
 }
 
+
+
+.features-section ul{
+    background-color: #050505e2;
+    width: 70%;
+    border-radius: 15px;
+    height: 100%;
+    overflow-x: hidden !important;
+    padding-top: 30px;
+    padding-left: 15px;
+    margin: 0;   
+    /* padding: 0; */
+}
+
 /* --- 769px STYLE ---*/
-@media only screen and (min-width: 768px) {
+@media (min-width: 768px) {
+
+
+    
+.features-section ul{
+    background-color: transparent !important;
+    width: fit-content;
+    border-radius: 15px;
+    height: 100%;
+    overflow-x: hidden !important;
+    padding: 0;
+    margin-left: 14rem !important;
+    margin-top: -1rem;   
+    /* padding: 0; */
+}
+
     .mobile-menu,
     .mobile-menu-exit {
         display: none;
@@ -277,6 +316,7 @@ nav li a:hover {
     .nav-bar {
         width: 100%;
         height: 80px;
+        background-color: #20272e;
     }
     .nav-bar .container {
         display: -ms-grid;
@@ -340,7 +380,7 @@ nav li a:hover {
 }
 
 /* --- 1080px STYLE ---*/
-@media only screen and (min-width: 1080px) {
+@media (min-width: 1080px) {
     .container {
         /* width: 1050px; */
         margin: 0 auto;
@@ -377,13 +417,16 @@ nav li a:hover {
         margin-right: 1em;
     }
 
+    
+ 
     .features-section .container {
         width: 1050px;
+       
     }
 
     .features-section ul {
         display: block;
-        margin-left: 5em;
+        /* margin-left: 0em; */
 
         /* z-index: 1; */
     }
@@ -398,13 +441,7 @@ nav li a:hover {
     .features-section {
         position: relative;
     }
-    .features-section img {
-        display: block;
-        position: absolute;
-        right: 0;
-        width: 350px;
-        bottom: -2em;
-    }
+   
     .test-monials-section ul {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -442,34 +479,27 @@ nav li a:hover {
     }
 }
 
-/* --- 1450px STYLE ---*/
-@media only screen and (min-width: 1450px) {
-    .features-section::before {
+
+    .features-section {
         content: '';
-        position: absolute;
-        width: 100%;
-        height: 20em;
-        background: var(--primary-color);
-        left: 0;
-        top: -4em;
-    }
-    .features-section::after {
-        content: '';
-        position: absolute;
+        position: relative;
         width: 300px;
         height: 20em;
+        background-color: #000;
         background: url('./Img/dots.svg') no-repeat;
-        left: 4.5em;
+        left: 0;
         top: 2em;
+        overflow-x: hidden !important;
     }
 
     .circle {
         margin-top: -250px;
-        background-color: white;
-        height: 250px;
-        width: 250px;
+        background-color:transparent;
+        height: 350px;
+        width: 350px;
         border-radius: 50%;
-        position: absolute;
+        position: absolute;   
+        top: 0;
         right: 0;
         z-index: -29;
         background-image: url('./Img/happy.jpg');
@@ -478,7 +508,12 @@ nav li a:hover {
         background-size: cover;
         border: 5px solid white;
     }
-}
+    .back_circle {
+        position: relative;
+        width: 90%;
+        margin: 0
+    }
+
 
 .sub-head span {
     color: #e1e1e1 !important;
@@ -534,8 +569,21 @@ input:focus {
     .nav-bar {
         padding: 0;
         height: 60px;
-        background-color: transparent;
+        background-color: #20272e;
         font-size: 14px;
         padding-left: 1em;
     }
+
+    .features-section   .barrier {
+        color: purple !important;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
 }
+
+.features-section {
+width: 100% !important;
+}
+
+

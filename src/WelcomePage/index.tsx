@@ -92,8 +92,9 @@ const HomePage = () => {
                 </div>
             </section>
 
-      <div>
+      
       <section className="features-section">
+ 
                 <div className="container">
                     <ul>
                         <li>Turn Off the Light</li>
@@ -104,12 +105,12 @@ const HomePage = () => {
                         <li>Wash Cold</li>
                         <li>Plant Trees</li>
                     </ul>
-                    <div>
+                    <div className= "back_circle">
                         <div className="circle">{/* <img src={holdingPhone} alt="phone" />  */}</div>
                     </div>
                 </div>
             </section>
-      </div>
+  
 
 
             <section className="others test-monials-section" style={{ overflowX: 'hidden' }}>
@@ -137,7 +138,7 @@ const HomePage = () => {
                         <li>
                             <img src={share} alt="Person 3" />
                             <p>
-                                <span>Be inspired</span> invite friends  and family to
+                                <span>invite friends  and family </span> to
                         join in the campaign
                             </p>
                         </li>
