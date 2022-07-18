@@ -1,22 +1,20 @@
-import { useContext, useEffect, useState } from 'react';
+import {useEffect, useState } from 'react';
 
 import { withErrorHandlingAsync } from './handlers';
 import { initAfterJoin, updateOnlineStatuses } from 'src/_aqua/app';
 import { registerUserStatus } from 'src/_aqua/app';
-import { CallParams, Fluence, PeerIdB58 } from '@fluencelabs/fluence';
-import joinContext from 'src/Contexts/join';
+import { Fluence, PeerIdB58 } from '@fluencelabs/fluence';
 
 
 interface User {
     id: PeerIdB58;
     name: string;
     isOnline: boolean;
-    score: string;
 }
 
 const refreshOnlineStatusTimeoutMs = 1000;
 
-export const UserList = (props: { selfName: string; score: string }) => {
+export const UserList = (props: { selfName: string;}) => {
     const [users, setUsers] = useState<Map<PeerIdB58, User>>(new Map());
       const updateOnlineStatus = (user: string, onlineStatus: boolean) => {
         setUsers((prev) => {
@@ -53,7 +51,6 @@ export const UserList = (props: { selfName: string; score: string }) => {
                         name: u.name,
                         id: u.peer_id,
                         isOnline: isOnline,
-                        score: props.score,
                     });
 
                     return result;
@@ -79,7 +76,7 @@ export const UserList = (props: { selfName: string; score: string }) => {
         return () => {
             clearTimeout(listRefreshTimer);
         };
-    },[]);
+    },[props.selfName]);
 
     const usersArray = Array.from(users)
         .map((x) => x[1])
@@ -87,16 +84,15 @@ export const UserList = (props: { selfName: string; score: string }) => {
 
     return (
 
-        <div className="userlist">
+        <div className="userlist" style={{marginLeft:"1em", marginTop: "1em"}}>
             <ul>
                 {usersArray.map((x) => (
                     <li key={x.id}>
                         <span style={{ fontWeight: x.id === Fluence.getStatus().peerId ? 'bold' : '' }}>{x.name }</span>
-                        <span style={{ color: x.isOnline ? 'whitesmoke' : 'red', fontSize: "10px" }}>
+                        <span style={{ color: x.isOnline ? 'green' : 'red', fontSize: "10px" }}>
                             {' '}
                             {x.isOnline ? 'online' : 'offline'}
                         </span>
-                        <span style={{ fontWeight: 'bold' }}>{x.score}</span>
                     </li>
                 ))}
             </ul>

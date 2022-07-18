@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Fluence, PeerIdB58 } from '@fluencelabs/fluence';
+import { Fluence} from '@fluencelabs/fluence';
 import config from 'src/app.json';
 import { krasnodar } from '@fluencelabs/fluence-network-environment';
-import { registerAppConfig } from 'src/_aqua/app';
+import { registerAppConfig} from 'src/_aqua/app';
 import connectionContext from './connection';
 import joinContext from './join';
-import userScoresContext from './user';
-
 
 
 const userList = {
@@ -21,7 +19,6 @@ const UserListApp = {
 export default function Context({ children }) {
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const [isInActiveDay, setisInActiveDay] = useState<boolean>(false);
-    const [scoresList, setScoresList] = useState<number[]>([0]);
 
     async function connect() {
         try {
@@ -43,6 +40,10 @@ export default function Context({ children }) {
         }
     }
 
+ 
+
+
+    
 
 
     useEffect(() => {
@@ -54,8 +55,10 @@ export default function Context({ children }) {
     return (
         <connectionContext.Provider value={[isConnected, setIsConnected]}>
             <joinContext.Provider value={[isInActiveDay, setisInActiveDay]}>
-                <userScoresContext.Provider value={[scoresList, setScoresList]}></userScoresContext.Provider>
                 {children}</joinContext.Provider>
         </connectionContext.Provider>
     );
+}
+function upstr(upstr: any, string: any) {
+    throw new Error('Function not implemented.');
 }

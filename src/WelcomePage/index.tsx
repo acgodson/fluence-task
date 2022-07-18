@@ -13,7 +13,6 @@ import share from '../WelcomePage/Img/share.gif';
 import joinContext from 'src/Contexts/join';
 
 
-
 const HomePage = () => {
     const isConnected = useContext(connectionContext);
     const [isInActiveDay, setisInActiveDay] = useContext(joinContext);

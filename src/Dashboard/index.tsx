@@ -9,7 +9,7 @@ import joinContext from 'src/Contexts/join';
 import connectionContext from 'src/Contexts/connection';
 import { UserList } from 'src/components/userList';
 import { leave} from 'src/_aqua/app';
-import { getRelayTime, registerUserScores, tellFortune } from 'src/_aqua/user-scores';
+import { registerUserScores, tellFortune } from 'src/_aqua/user-scores';
 import bulb from '../WelcomePage/Img/bulb.jpg';
 import rope from '../WelcomePage/Img/rope.jpg';
 import recycle from '../WelcomePage/Img/recycle.jpg';
@@ -128,32 +128,36 @@ const Dashboard = () => {
         });
     };
 
-    async function updateScores() {
-        try {
-            //   if (isInActiveDay) {
-            registerUserScores({
-                getFortune: async () => {
-                    await new Promise((resolve) => {
-                        setTimeout(resolve, 1000);
-                    });
-                    
-                    return scores;
-                },
-            });
-
-            const _scores = await tellFortune();
-            const relayTime = await getRelayTime();
-            setScores(_scores);
-           
-
-            console.log(_scores);
-
-        } catch (err) {
-            console.log('Peer initialization failed', err);
-        }
-    }
+   
 
     useEffect(() => {
+
+        async function updateScores() {
+            try {
+                //   if (isInActiveDay) {
+                registerUserScores({
+                    getFortune: async () => {
+                        await new Promise((resolve) => {
+                            setTimeout(resolve, 1000);
+                        });
+                        
+                        return scores;
+                    },
+                });
+    
+                const _scores = await tellFortune();
+                // const relayTime = await getRelayTime();
+                setScores(_scores);
+               
+    
+                console.log(_scores);
+    
+            } catch (err) {
+                console.log('Peer initialization failed', err);
+            }
+        }
+
+
         if (!buzzModal && parseInt(totalScore) !== 0) {
             updateScores();
             toast.success(`Keep it up you've just earned ${totalScore} points`);
@@ -218,7 +222,7 @@ const Dashboard = () => {
                 </div>
                    
 
-                    <UserList selfName={displayName} score={totalScore!.toString()} />
+                    <UserList selfName={displayName}/>
                 </div>
 
                 {mobileModal && (
@@ -238,8 +242,7 @@ const Dashboard = () => {
                         closeModal={toggleMobileModal}
                     >
                         <div className={styles.mobile_bar}>
-                            <label>Scores </label>
-                            <UserList selfName={displayName} score={totalScore!.toString()} />
+                            <UserList selfName={displayName}/>
                             <span>
                                 <button onClick={() => leaveTask()}>Leave</button>
                             </span>

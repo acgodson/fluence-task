@@ -323,7 +323,7 @@ nav li a:hover {
     height: 300px;
     width: 100%;
     align-self: center;
-    background-color: green;
+    background-color: #20272e;
     display: flex;
     flex-direction: column;
     align-items: center;
