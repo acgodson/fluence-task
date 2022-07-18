@@ -3,7 +3,7 @@
 
 FluenceTask encourages users to shift their daily habits towards tasks that improve sustainability and optimizes carbon footprint at home or workplace. 
 
-Users connected on the peer check-in actions when they perform each task in real life. They also learn some potential advantages of each sustainable action.
+Users connected on the peer log actions when they perform each task in real life. They also learn some potential advantages of each sustainable action.
 
 Active users are displayed on the network and points are awarded for each sustainable action.
 
